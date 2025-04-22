@@ -70,11 +70,8 @@ class CommonFileDownloader {
     if (io.Platform.isAndroid) {
       return io.File('/storage/emulated/0/Download/$fileName');
     } else if (io.Platform.isIOS) {
-      // Call native iOS method to open the file
       const platform = MethodChannel('com.untitled/documents');
       await platform.invokeMethod('openFile', {'path': fileName});
-      //final dir = await getApplicationDocumentsDirectory();
-      //return io.File('${dir.path}/$fileName');
     } else if (io.Platform.isMacOS || io.Platform.isLinux || io.Platform.isWindows) {
       final dir = await getDownloadsDirectory() ?? await getApplicationDocumentsDirectory();
       return io.File('${dir.path}/$fileName');
